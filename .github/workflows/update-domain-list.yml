@@ -10,7 +10,7 @@ on:
     - cron: '0 10 15 * *'
 
 env:
-  FOLDER: '${{ github.workspace }}/cloudflare/lists'
+  FOLDER: '${{ github.workspace }}/terraform/cloudflare-gateway/cloudflare/lists'
   
 permissions: read-all
 
