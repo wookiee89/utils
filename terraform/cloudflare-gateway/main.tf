@@ -12,7 +12,7 @@ terraform {
 }
 
 provider "cloudflare" {
-    api_token = var.cloudflare_api_token
+  api_token = var.cloudflare_api_token
 }
 
 resource "cloudflare_teams_rule" "block_malware" {
@@ -87,7 +87,7 @@ locals {
   pihole_domain_list = split("\n", file(local.pihole_domain_list_file))
 
   # Remove empty lines
-  pihole_domain_list_clean = [ for x in local.pihole_domain_list : x if x != "" ]
+  pihole_domain_list_clean = [for x in local.pihole_domain_list : x if x != ""]
 
   # Use chunklist to split a list into fixed-size chunks
   # It returns a list of lists
@@ -102,11 +102,11 @@ resource "cloudflare_teams_list" "pihole_domain_lists" {
 
   for_each = {
     for i in range(0, local.pihole_list_count) :
-      i => element(local.pihole_aggregated_lists, i)
+    i => element(local.pihole_aggregated_lists, i)
   }
 
-  name  = "pihole_domain_list_${each.key}"
-  type  = "DOMAIN"
+  name        = "pihole_domain_list_${each.key}"
+  type        = "DOMAIN"
   description = "List"
-  items = each.value
+  items       = each.value
 }
